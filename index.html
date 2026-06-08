@@ -2,1009 +2,926 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#0f0f1a">
-    <meta name="description" content="Городские прятки на Баме — 12 июня. Денежный приз!">
-    <title>Прятки на Баме — 12 июня</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="description" content="Официальный сайт прятков на Баме с правилами и расписанием">
+    <title>Прятки на Баме — 12 июня | Официальный сайт</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
-            --bg: #0f0f1a;
-            --bg-soft: #1a1a2e;
-            --card: #1e1e32;
-            --accent: #a855f7;
-            --accent-2: #ec4899;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #fbbf24;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: rgba(168, 85, 247, 0.2);
-            --radius: 20px;
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.1);
+            --accent-primary: #ff3366;
+            --accent-secondary: #ff6b9d;
+            --accent-glow: rgba(255, 51, 102, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff3366;
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 40px;
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.4);
         }
-        
+
         html {
             scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
         }
-        
+
         body {
-            font-family: 'Manrope', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
             position: relative;
-            min-width: 320px;
-            -webkit-font-smoothing: antialiased;
         }
-        
-        /* Фоновые шары */
-        .bg-orbs {
+
+        /* Animated Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 51, 102, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(100, 50, 200, 0.08) 0%, transparent 60%);
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-primary);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-secondary);
+            top: 40%;
+            right: -5%;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: #8b5cf6;
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Particles Background */
+        #particles-js {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
         }
-        
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-        }
-        
-        .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent);
-            top: 5%;
-            left: -10%;
-            animation: float 20s infinite ease-in-out;
-        }
-        
-        .orb-2 {
-            width: 250px;
-            height: 250px;
-            background: var(--accent-2);
-            top: 40%;
-            right: -15%;
-            animation: float 25s infinite ease-in-out -5s;
-        }
-        
-        .orb-3 {
-            width: 200px;
-            height: 200px;
-            background: var(--success);
-            bottom: 15%;
-            left: 20%;
-            animation: float 22s infinite ease-in-out -10s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(40px, -40px) scale(1.1); }
-            66% { transform: translate(-20px, 30px) scale(0.9); }
-        }
-        
+
+        /* Container */
         .container {
-            width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 16px;
+            padding: 0 20px;
+            position: relative;
         }
-        
-        /* HERO */
-        .hero {
-            min-height: 85vh;
-            min-height: 85dvh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 60px 16px 40px;
-        }
-        
-        .hero-tag {
-            display: inline-block;
-            padding: 8px 18px;
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
-            font-size: clamp(0.7rem, 2vw, 0.85rem);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 24px;
-            font-weight: 700;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        .hero h1 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(2rem, 10vw, 6rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #fff 0%, #a855f7 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.2s forwards;
-            word-break: break-word;
-            hyphens: auto;
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
-            color: var(--text-muted);
-            max-width: 560px;
-            margin: 0 auto 32px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.4s forwards;
-            line-height: 1.5;
-        }
-        
-        .date-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 24px;
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid var(--danger);
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: clamp(1rem, 3.5vw, 1.3rem);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.6s forwards;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .pulse-dot {
-            width: 12px;
-            height: 12px;
-            min-width: 12px;
-            background: var(--danger);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--danger);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.3); }
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* СЧЁТЧИК */
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(8px, 2vw, 15px);
-            margin-top: clamp(30px, 6vw, 50px);
-            width: 100%;
-            max-width: 600px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.8s forwards;
-        }
-        
-        .countdown-item {
-            background: rgba(30, 30, 50, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: clamp(12px, 3vw, 20px);
-            padding: clamp(12px, 3vw, 20px) clamp(8px, 2vw, 10px);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .countdown-item .number {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.3rem, 7vw, 2.8rem);
-            font-weight: 900;
-            display: block;
-            color: var(--text);
-            line-height: 1.1;
-        }
-        
-        .countdown-item .label {
-            font-size: clamp(0.6rem, 2vw, 0.75rem);
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-            display: block;
-        }
-        
-        /* СЕКЦИИ */
-        section {
-            padding: clamp(40px, 8vw, 80px) 0;
-        }
-        
-        .section-title {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.3rem, 5vw, 2.5rem);
-            font-weight: 700;
-            margin-bottom: clamp(24px, 5vw, 40px);
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: clamp(8px, 2vw, 15px);
-            flex-wrap: wrap;
-            word-break: break-word;
-        }
-        
-        .section-title .emoji {
-            font-size: 1em;
-            display: inline-block;
-            animation: wiggle 3s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-        
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-        
-        /* КАРТА */
-        .map-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            width: 100%;
-        }
-        
-        .map-image-container {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #2a2a3e, #1a1a2e);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .map-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .map-placeholder {
-            text-align: center;
-            padding: clamp(20px, 5vw, 40px);
-        }
-        
-        .map-placeholder-icon {
-            font-size: clamp(3rem, 10vw, 4rem);
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .map-placeholder p {
-            font-size: clamp(0.85rem, 2.5vw, 1rem);
-            color: var(--text-muted);
-            padding: 0 10px;
-        }
-        
-        .map-placeholder p strong {
-            color: var(--text);
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        .map-content {
-            padding: clamp(20px, 4vw, 30px);
-        }
-        
-        .map-content h3 {
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
-            margin-bottom: 8px;
-        }
-        
-        .map-content p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-        }
-        
-        /* КНОПКИ */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: clamp(12px, 3vw, 16px) clamp(20px, 5vw, 28px);
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            min-height: 48px;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.5);
-        }
-        
-        .btn-warning {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #1a1a2e;
-        }
-        
-        .btn-warning:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.5);
-        }
-        
-        .btn-tg {
-            background: white;
-            color: #0088cc;
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-tg:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-link {
-            background: none;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-        }
-        
-        /* GRID СЕКЦИЙ */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-            gap: clamp(12px, 3vw, 20px);
-        }
-        
-        .info-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: clamp(20px, 4vw, 30px) clamp(16px, 3vw, 25px);
-            text-align: center;
+
+        /* Glass Card Base */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
-        
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.05) 25%, 
+                transparent 50%);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            transform: translate3d(0, -4px, 0);
+        }
+
+        /* Header */
+        header {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 51, 102, 0.15);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-primary);
+            animation: pulse 2s ease-in-out infinite;
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-secondary) 50%, var(--accent-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            letter-spacing: -2px;
+            text-shadow: 0 2px 10px rgba(255, 51, 102, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 650px;
+            margin: 40px auto;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .countdown-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .countdown-item:hover::before {
+            opacity: 1;
+        }
+
+        .countdown-item .number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            display: block;
+            background: linear-gradient(135deg, #fff, var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .countdown-item .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff, var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Map Section */
+        .map-container {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--glass-border);
+        }
+
+        .map-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+            object-fit: cover;
+        }
+
+        .map-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .map-info {
+            padding: 30px;
+        }
+
+        .map-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .map-info p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+            transform: translate3d(0, -3px, 0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #0088cc, #00a0dc);
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
         .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .info-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .info-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .info-card .value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.2);
+        }
+
+        /* Rules */
+        .rules-container {
+            display: grid;
+            gap: 24px;
+        }
+
+        .rule-section {
+            padding: 30px;
+            position: relative;
+        }
+
+        .rule-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
         }
-        
-        .info-card:hover::before {
-            transform: scaleX(1);
+
+        .rule-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            padding-left: 10px;
         }
-        
-        .info-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2);
+
+        .rule-section h3 .icon {
+            font-size: 1.8rem;
         }
-        
-        .info-card .icon {
-            font-size: clamp(2rem, 6vw, 2.5rem);
-            margin-bottom: 12px;
-            display: block;
+
+        .rule-section h3::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
         }
-        
-        .info-card h3 {
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 8px;
+
+        .rule-section ul {
+            list-style: none;
+            padding-left: 0;
         }
-        
-        .info-card .value {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+
+        .rule-section li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            transition: all 0.3s;
         }
-        
-        .info-card .desc {
-            margin-top: 8px;
-            color: var(--text-muted);
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
+
+        .rule-section li:hover {
+            color: var(--text-primary);
+            padding-left: 40px;
         }
-        
-        /* ПРИЗЫ */
-        .prize-section {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
-            border: 1px solid var(--accent);
-            border-radius: clamp(20px, 5vw, 30px);
-            padding: clamp(30px, 6vw, 50px) clamp(20px, 5vw, 40px);
+
+        .rule-section li:last-child {
+            border-bottom: none;
+        }
+
+        .rule-section li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .rule-section.allowed li::before {
+            content: '✓';
+            color: var(--success);
+        }
+
+        .rule-section.forbidden li::before {
+            content: '✕';
+            color: var(--danger);
+        }
+
+        .rule-section.warning li::before {
+            content: '⚠';
+            color: var(--warning);
+        }
+
+        .rule-section .highlight {
+            background: rgba(255, 51, 102, 0.15);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            border-left: 3px solid var(--accent-primary);
+        }
+
+        .rule-section .highlight p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Prize Box */
+        .prize-box {
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.1), rgba(255, 107, 157, 0.1));
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            padding: 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-radius: var(--radius-lg);
         }
-        
-        .prize-section::before {
+
+        .prize-box::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.1) 0%, transparent 50%);
             animation: rotate 20s linear infinite;
         }
-        
+
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
-        .prize-content {
+
+        .prize-box .content {
             position: relative;
             z-index: 1;
         }
-        
-        .prize-title {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.3rem, 5vw, 2.2rem);
-            margin-bottom: 16px;
-        }
-        
-        .prize-title-sub {
-            color: var(--text-muted);
-            font-size: clamp(0.95rem, 3vw, 1.1rem);
+
+        .prize-box h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
             margin-bottom: 20px;
         }
-        
-        .prize-title-sub strong {
-            color: var(--accent);
-        }
-        
+
         .prize-amount {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.8rem, 8vw, 4.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-            margin: 16px 0;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.3)); }
-            to { filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.5)); }
-        }
-        
-        .prize-stats {
-            display: flex;
-            justify-content: center;
-            gap: clamp(16px, 5vw, 40px);
-            flex-wrap: wrap;
-            margin: 24px 0;
-        }
-        
-        .prize-stat {
-            text-align: center;
-            min-width: 80px;
-        }
-        
-        .prize-stat .num {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.3rem, 4vw, 2rem);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
             font-weight: 700;
-            color: var(--accent);
-            display: block;
-        }
-        
-        .prize-stat .label {
-            color: var(--text-muted);
-            font-size: clamp(0.75rem, 2vw, 0.9rem);
-        }
-        
-        .prize-note {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px dashed var(--warning);
-            border-radius: 16px;
-            padding: clamp(16px, 4vw, 20px);
-            margin-top: 24px;
-            color: var(--warning);
-            font-weight: 600;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            text-align: left;
-        }
-        
-        .prize-note strong {
-            display: block;
-            font-size: 1.05em;
-            margin-bottom: 6px;
-        }
-        
-        /* ПРИГЛАШЕНИЕ */
-        .invite-banner {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
-            border: 2px dashed var(--success);
-            border-radius: var(--radius);
-            padding: clamp(24px, 5vw, 30px) clamp(16px, 4vw, 24px);
-            text-align: center;
-            animation: pulseBorder 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulseBorder {
-            0%, 100% { border-color: var(--success); }
-            50% { border-color: var(--accent-2); }
-        }
-        
-        .invite-banner h3 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.1rem, 4vw, 1.5rem);
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--success), var(--accent));
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin: 20px 0;
+            text-shadow: 0 0 40px rgba(255, 170, 0, 0.3);
         }
-        
-        .invite-banner p {
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-        }
-        
-        .invite-banner .highlight {
-            color: var(--warning);
-            font-size: clamp(0.95rem, 2.8vw, 1.2rem);
-            display: block;
-        }
-        
-        /* КОМАНДЫ */
-        .team-scenario {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: clamp(20px, 4vw, 25px);
-            margin-bottom: clamp(12px, 3vw, 20px);
-            display: flex;
-            align-items: flex-start;
-            gap: clamp(12px, 3vw, 20px);
-            transition: all 0.4s ease;
-        }
-        
-        .team-scenario:hover {
-            transform: translateX(8px);
-            border-color: var(--accent);
-            box-shadow: -10px 0 30px rgba(168, 85, 247, 0.15);
-        }
-        
-        .scenario-icon {
-            font-size: clamp(2rem, 6vw, 3rem);
-            min-width: clamp(40px, 8vw, 60px);
-            text-align: center;
-            flex-shrink: 0;
-        }
-        
-        .scenario-content h4 {
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            margin-bottom: 8px;
-            color: var(--accent);
-        }
-        
-        .scenario-content p {
-            color: var(--text-muted);
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            line-height: 1.5;
-        }
-        
-        .scenario-content p strong {
-            color: var(--text);
-        }
-        
-        .scenario-content .btn {
-            margin-top: 12px;
-            font-size: clamp(0.85rem, 2.3vw, 0.95rem);
-        }
-        
-        /* ПРАВИЛА */
-        .rules-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-            gap: clamp(16px, 3vw, 25px);
-        }
-        
-        .rules-card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: clamp(20px, 4vw, 30px);
-            border: 1px solid var(--border);
-            transition: transform 0.3s ease;
-        }
-        
-        .rules-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .rules-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: clamp(12px, 3vw, 20px);
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            flex-wrap: wrap;
-        }
-        
-        .rules-card ul {
-            list-style: none;
-        }
-        
-        .rules-card li {
-            padding: clamp(10px, 2.5vw, 12px) 0 clamp(10px, 2.5vw, 12px) 32px;
-            position: relative;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            line-height: 1.5;
-        }
-        
-        .rules-card li:last-child {
-            border-bottom: none;
-        }
-        
-        .rules-card li::before {
-            position: absolute;
-            left: 0;
-            top: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .allowed li::before { content: "✅"; }
-        .forbidden li::before { content: "❌"; }
-        
-        .important-rule {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(236, 72, 153, 0.1));
-            border: 1px solid var(--danger);
-            border-radius: var(--radius);
-            padding: clamp(20px, 4vw, 30px) clamp(20px, 4vw, 30px);
-            padding-top: clamp(30px, 5vw, 40px);
-            margin-top: clamp(20px, 4vw, 30px);
-            position: relative;
-        }
-        
-        .important-rule::before {
-            content: "️";
-            position: absolute;
-            top: -14px;
-            left: clamp(16px, 4vw, 25px);
-            background: var(--bg);
-            padding: 0 10px;
-            font-size: 1.3rem;
-        }
-        
-        .important-rule h3 {
-            color: var(--danger);
-            margin-bottom: 12px;
-            font-size: clamp(1.05rem, 3vw, 1.3rem);
-        }
-        
-        .important-rule ul {
-            list-style: none;
-        }
-        
-        .important-rule li {
-            padding: 6px 0 6px 24px;
-            position: relative;
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-            line-height: 1.5;
-        }
-        
-        .important-rule li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--danger);
-            font-weight: bold;
-        }
-        
-        .important-rule li strong {
-            color: var(--warning);
-        }
-        
-        /* TG СЕКЦИЯ */
+
+        /* Telegram Section */
         .tg-section {
-            background: linear-gradient(135deg, #0088cc, #00a0dc);
-            border-radius: clamp(20px, 5vw, 30px);
-            padding: clamp(30px, 6vw, 50px) clamp(20px, 5vw, 40px);
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.15), rgba(0, 160, 220, 0.1));
+            border: 1px solid rgba(0, 136, 204, 0.3);
+            padding: 50px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-radius: var(--radius-lg);
         }
-        
+
         .tg-section::before {
             content: '✈';
             position: absolute;
-            font-size: clamp(10rem, 30vw, 20rem);
-            opacity: 0.08;
+            font-size: 20rem;
+            opacity: 0.05;
             top: 50%;
             right: -5%;
             transform: translateY(-50%) rotate(-15deg);
-            pointer-events: none;
         }
-        
-        .tg-content {
+
+        .tg-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
             position: relative;
             z-index: 1;
         }
-        
-        .tg-section h2 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: clamp(1.3rem, 5vw, 2.5rem);
-            margin-bottom: 12px;
-            color: white;
+
+        .tg-section p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
-        
-        .tg-section > .tg-content > p {
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 24px;
-            max-width: 560px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
+
+        /* FAQ Section */
+        .faq-section {
+            background: linear-gradient(135deg, rgba(100, 50, 200, 0.08), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            position: relative;
         }
-        
-        .tg-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-            gap: clamp(12px, 3vw, 20px);
-            margin-top: clamp(24px, 5vw, 40px);
+
+        .faq-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
         }
-        
-        .tg-feature {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 16px;
-            padding: clamp(16px, 3vw, 20px);
-            color: white;
-            text-align: left;
+
+        .faq-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--glass-border);
         }
-        
-        .tg-feature .emoji {
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            margin-bottom: 8px;
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .faq-question::after {
+            content: '➕';
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.show {
+            max-height: 200px;
+            padding-top: 10px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            margin: 40px 0;
+        }
+
+        .contact-section h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 2px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-text {
+            text-align: center;
+        }
+
+        .contact-text strong {
             display: block;
+            margin-bottom: 5px;
+            color: var(--text-primary);
         }
-        
-        .tg-feature h4 {
-            margin-bottom: 4px;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-        }
-        
-        .tg-feature p {
-            font-size: clamp(0.8rem, 2vw, 0.85rem);
-            margin: 0;
-            opacity: 0.9;
-            line-height: 1.4;
-        }
-        
-        /* ФУТЕР */
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: clamp(30px, 5vw, 40px) 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
-            border-top: 1px solid var(--border);
-            margin-top: 40px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
         }
-        
-        footer p {
-            margin-bottom: 6px;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
-            line-height: 1.4;
+
+        footer a {
+            color: var(--accent-secondary);
+            text-decoration: none;
         }
-        
-        .heart {
-            color: var(--danger);
-            display: inline-block;
-            animation: heartbeat 1.5s ease-in-out infinite;
+
+        footer a:hover {
+            text-decoration: underline;
         }
-        
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        /* REVEAL ANIMATION */
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(50px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        /* === АДАПТИВНОСТЬ === */
-        
-        /* Очень маленькие экраны (320-375px) */
-        @media (max-width: 375px) {
+
+        /* Responsive */
+        @media (max-width: 768px) {
             .countdown {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-            
-            .countdown-item {
-                padding: 14px 8px;
-            }
-            
-            .hero {
-                min-height: 80dvh;
-                padding-top: 40px;
-            }
-            
-            .prize-stats {
                 gap: 12px;
             }
-            
-            .prize-stat {
-                min-width: 70px;
+
+            .countdown-item {
+                padding: 20px 12px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .glass-card {
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title::after {
+                display: none;
             }
         }
-        
-        /* Маленькие экраны (375-480px) */
+
         @media (max-width: 480px) {
             .countdown {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            .team-scenario {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .team-scenario:hover {
-                transform: translateY(-5px);
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 0.95rem;
             }
         }
-        
-        /* Планшеты (768-1024px) */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .container {
-                max-width: 720px;
-            }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        
-        /* Десктопы (1024px+) */
-        @media (min-width: 1024px) {
-            .container {
-                padding: 0 24px;
-            }
-            
-            .info-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
         }
-        
-        /* Большие экраны (1440px+) */
-        @media (min-width: 1440px) {
-            .container {
-                max-width: 1200px;
-            }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
         }
-        
-        /* Горизонтальная ориентация на мобильных */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .hero {
-                min-height: auto;
-                padding: 30px 16px;
-            }
-            
-            .countdown {
-                margin-top: 20px;
-            }
-            
-            .countdown-item .number {
-                font-size: 1.5rem;
-            }
-        }
-        
-        /* Отключить анимации для тех кто предпочитает */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-            
-            .orb {
-                animation: none;
-            }
-        }
-        
-        /* Тёмная тема (уже дефолт, но для совместимости) */
-        @media (prefers-color-scheme: light) {
-            /* Можно оставить тёмным, т.к. это выбор дизайна */
-        }
-        
-        /* Очень большие шрифты у пользователя */
-        @media (min-resolution: 2dppx) {
-            .countdown-item .number {
-                font-size: clamp(1.2rem, 6vw, 2.5rem);
-            }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
         }
     </style>
 </head>
 <body>
-    <div class="bg-orbs">
+    <div class="bg-gradient"></div>
+    <div class="floating-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
+    <div id="particles-js"></div>
 
     <div class="container">
         <!-- HERO -->
-        <section class="hero">
-            <span class="hero-tag">🎮 Городская игра</span>
+        <header>
+            <div class="badge">Официальная игра</div>
             <h1>Прятки на Баме</h1>
-            <p class="hero-subtitle">Самые масштабные прятки города с денежным призом. Собирай друзей, прячься умнее, побеждай!</p>
-            
-            <div class="date-badge">
-                <span class="pulse-dot"></span>
-                <span>📅 12 июня · 15:00</span>
-            </div>
+            <p class="subtitle">Масштабная городская игра с денежными призами. Найди лучшее место и останься незамеченным!</p>
             
             <div class="countdown" id="countdown">
                 <div class="countdown-item">
@@ -1024,247 +941,284 @@
                     <span class="label">Секунд</span>
                 </div>
             </div>
-        </section>
-        
-        <!-- КАРТА -->
+        </header>
+
+        <!-- MAP -->
         <section class="reveal">
-            <h2 class="section-title"><span class="emoji"></span> Место сбора и карта игры</h2>
-            <div class="map-card">
-                <div class="map-image-container">
-                    <!-- ЗАМЕНИТЕ src НА ВАШЕ ФОТО КАРТЫ -->
-                    <img src="map.jpg" alt="Карта места сбора — территория игры">
-                </div>
-                <div class="map-content">
-                    <h3>Школа №16 · Поле</h3>
-                    <p>Собираемся все вместе на поле возле школы. Можно прийти раньше!</p>
-                    <p style="font-size: 0.9rem; margin-top: 8px;">
-                        <strong style="color: var(--text);">Территория игры:</strong> красный контур на карте выше
-                    </p>
-                    <a href="https://maps.app.goo.gl/gEjj1oG6eQBb9VAF9" target="_blank" class="btn btn-primary" style="margin-top: 20px;">
-                        <span>📍</span>
-                        <span>Открыть в Google Maps</span>
-                    </a>
-                </div>
+            <h2 class="section-title">📍 Место сбора</h2>
+            <div class="glass-card map-container">
+                <img src="map.jpg" alt="Карта игровой зоны">
             </div>
-        </section>
-        
-        <!-- РАСПИСАНИЕ -->
-        <section class="reveal">
-            <h2 class="section-title"><span class="emoji">⏰</span> Расписание</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <span class="icon">🤝</span>
-                    <h3>Сбор</h3>
-                    <div class="value">15:00</div>
-                    <p class="desc">Можно прийти раньше</p>
-                </div>
-                <div class="info-card">
-                    <span class="icon">🚀</span>
-                    <h3>Старт</h3>
-                    <div class="value">Сразу</div>
-                    <p class="desc">Когда все собрались</p>
-                </div>
-                <div class="info-card">
-                    <span class="icon">🫥</span>
-                    <h3>Спрятаться</h3>
-                    <div class="value">30 мин</div>
-                    <p class="desc">Найти лучшее место</p>
-                </div>
-                <div class="info-card">
-                    <span class="icon">🔎</span>
-                    <h3>Поиск</h3>
-                    <div class="value">3 часа</div>
-                    <p class="desc">Максимальное время</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- ПРИЗЫ -->
-        <section class="reveal">
-            <div class="prize-section">
-                <div class="prize-content">
-                    <h2 class="prize-title">💰 Призовой фонд</h2>
-                    <p class="prize-title-sub">Взнос с каждого игрока: <strong>10–20 ₽</strong></p>
-                    
-                    <div class="prize-amount">5 ПОБЕДИТЕЛЕЙ</div>
-                    
-                    <div class="prize-stats">
-                        <div class="prize-stat">
-                            <span class="num">10-20₽</span>
-                            <span class="label">Взнос</span>
-                        </div>
-                        <div class="prize-stat">
-                            <span class="num">÷ 5</span>
-                            <span class="label">Делится поровну</span>
-                        </div>
-                        <div class="prize-stat">
-                            <span class="num">∞</span>
-                            <span class="label">Размер куша</span>
-                        </div>
-                    </div>
-                    
-                    <div class="prize-note">
-                        <strong> Важное правило:</strong>
-                        Чем больше людей придёт — тем больше будет общий куш! Бери друзей, родственников, соседей — вместе увеличиваем приз!
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- ПРИГЛАШЕНИЕ -->
-        <section class="reveal">
-            <div class="invite-banner">
-                <h3>📣 Приглашай друзей — увеличивай приз!</h3>
-                <p>Каждый новый игрок = больше денег в куше. Собери свою банду!</p>
-                <span class="highlight">Больше игроков → Больше куш → Больше фана!</span>
-            </div>
-        </section>
-        
-        <!-- КОМАНДЫ -->
-        <section class="reveal">
-            <h2 class="section-title"><span class="emoji"></span> Команды и одиночки</h2>
-            
-            <div class="team-scenario">
-                <div class="scenario-icon"></div>
-                <div class="scenario-content">
-                    <h4>Сценарий 1: Победа команды</h4>
-                    <p>Можно прятаться командой (до <strong>5 человек</strong>). Если выиграла команда — деньги получает <strong>главарь</strong>. Он сам решает, делиться с участниками или нет.</p>
-                </div>
-            </div>
-            
-            <div class="team-scenario">
-                <div class="scenario-icon"></div>
-                <div class="scenario-content">
-                    <h4>Сценарий 2: Команда + одиночки</h4>
-                    <p>Если выиграла команда и 4 одиночки (всего 5 победителей) — главарь команды решает: делиться деньгами с командой или забрать всё себе.</p>
-                </div>
-            </div>
-            
-            <div class="team-scenario">
-                <div class="scenario-icon">🎡</div>
-                <div class="scenario-content">
-                    <h4>Сценарий 3: Больше 5 победителей</h4>
-                    <p>Если «выживших» оказалось больше 5 человек — запускаем <strong>колесо фортуны</strong>, которое честно выберет главных 5 победителей!</p>
-                    <a href="https://wheelofnames.com/ru/" target="_blank" class="btn btn-warning">
-                        <span>🎡</span>
-                        <span>Открыть колесо фортуны</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-        
-        <!-- ПРАВИЛА -->
-        <section class="reveal">
-            <h2 class="section-title"><span class="emoji"></span> Правила игры</h2>
-            
-            <div class="rules-container">
-                <div class="rules-card allowed">
-                    <h3>✅ Где можно прятаться</h3>
-                    <ul>
-                        <li>Во дворе, за деревьями и кустами</li>
-                        <li>На детских площадках</li>
-                        <li>На козырьках подъездов</li>
-                        <li>В любых открытых уличных зонах</li>
-                    </ul>
-                </div>
-                
-                <div class="rules-card forbidden">
-                    <h3> Где нельзя прятаться</h3>
-                    <ul>
-                        <li>В подъездах и домах</li>
-                        <li>В квартирах</li>
-                        <li>На крышах домов</li>
-                        <li>В закрытых помещениях</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="important-rule">
-                <h3>Обязательные требования</h3>
-                <ul>
-                    <li>Включённый интернет и геолокация на телефоне</li>
-                    <li>Перед тем как спрятаться — отправь ведущему свою геолокацию</li>
-                    <li><strong>Если «вода» нашёл игрока — именно ВОДА отправляет кружок ведущему</strong> в Telegram как подтверждение!</li>
-                </ul>
-            </div>
-        </section>
-        
-        <!-- TG КАНАЛ -->
-        <section class="reveal">
-            <div class="tg-section">
-                <div class="tg-content">
-                    <h2> Вступай в наш Telegram-канал!</h2>
-                    <p>Все новости, обновления правил, идеи и анонсы следующих игр — в одном месте. Подписывайся и зови друзей!</p>
-                    
-                    <a href="https://t.me/pryatkipmr" target="_blank" class="btn btn-tg">
-                        <span>✈️</span>
-                        <span>Подписаться на @pryatkipmr</span>
-                    </a>
-                    
-                    <div class="tg-features">
-                        <div class="tg-feature">
-                            <span class="emoji">📢</span>
-                            <h4>Анонсы игр</h4>
-                            <p>Узнавай первым о следующих прятках</p>
-                        </div>
-                        <div class="tg-feature">
-                            <span class="emoji">💡</span>
-                            <h4>Идеи и правила</h4>
-                            <p>Обсуждай и предлагай свои идеи</p>
-                        </div>
-                        <div class="tg-feature">
-                            <span class="emoji">👥</span>
-                            <h4>Сообщество</h4>
-                            <p>Зови друзей — чем больше, тем веселее!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- ВЕДУЩИЙ -->
-        <section class="reveal">
-            <h2 class="section-title"><span class="emoji">📱</span> Связь с ведущим</h2>
-            <div style="text-align: center; max-width: 500px; margin: 0 auto;">
-                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: clamp(0.9rem, 2.5vw, 1rem);">
-                    Отправляй геолокации и кружки-подтверждения сюда:
-                </p>
-                <a href="https://t.me/ZlayaLysya" target="_blank" class="btn btn-link" style="font-size: clamp(1rem, 3vw, 1.1rem);">
-                    <span>✈️</span>
-                    <span>@Kleeveer1</span>
+            <div class="glass-card map-info">
+                <h3>Школа №16 · Поле</h3>
+                <p>Собираемся все вместе на поле возле школы. Можно прийти раньше!</p>
+                <a href="https://maps.app.goo.gl/gEjj1oG6eQBb9VAF9" target="_blank" class="btn">
+                    <span>📍</span>
+                    <span>Открыть в Google Maps</span>
                 </a>
             </div>
         </section>
-        
-        <!-- ФУТЕР -->
-        <footer>
-            <p>🎮 Прятки на Баме · 12 июня · Школа №16</p>
-            <p>Сделано с <span class="heart">❤️</span> для любителей приключений</p>
-            <p style="margin-top: 8px; font-size: 0.85em;">Приходи · Прячься · Побеждай</p>
-        </footer>
+
+        <!-- TIMING -->
+        <section class="reveal">
+            <h2 class="section-title">⏰ Расписание</h2>
+            <div class="info-grid">
+                <div class="glass-card info-card">
+                    <span class="icon">🤝</span>
+                    <h3>Сбор</h3>
+                    <div class="value">14:00</div>
+                    <p>Можно прийти раньше</p>
+                </div>
+                <div class="glass-card info-card">
+                    <span class="icon">🫥</span>
+                    <h3>Спрятаться</h3>
+                    <div class="value">30 мин</div>
+                    <p>Найти лучшее место</p>
+                </div>
+                <div class="glass-card info-card">
+                    <span class="icon">🔎</span>
+                    <h3>Поиск</h3>
+                    <div class="value">3 часа</div>
+                    <p>Продолжительность игры</p>
+                </div>
+                <div class="glass-card info-card">
+                    <span class="icon">👥</span>
+                    <h3>Участников</h3>
+                    <div class="value">до 100</div>
+                    <p>Максимальное количество</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRIZE -->
+        <section class="reveal">
+            <h2 class="section-title">💰 Призовой фонд</h2>
+            <div class="glass-card prize-box">
+                <div class="content">
+                    <h3>🏆 Победители забирают всё</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 10px;">Взнос с участника: <strong style="color: var(--accent-secondary);">15-20₽</strong></p>
+                    <div class="prize-amount">5 ПОБЕДИТЕЛЕЙ</div>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;">
+                        Если один ненайденный — забирает весь куш<br>
+                        Если несколько — делят поровну
+                    </p>
+                    <div class="highlight">
+                        <p><strong style="color: var(--warning);">🔥 Чем больше игроков — тем больше куш!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OFFICIAL RULES -->
+        <section class="reveal">
+            <h2 class="section-title">📜 Официальные правила</h2>
+            <div class="rules-container">
+                <div class="glass-card rule-section">
+                    <h3><span class="icon">💰</span> Взнос</h3>
+                    <ul>
+                        <li>Каждый участник обязан внести взнос от 15 до 20 рублей до начала игры</li>
+                        <li>Игрок, не внесший взнос, к участию не допускается</li>
+                        <li>В случае дисквалификации деньги не возвращаются</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section">
+                    <h3><span class="icon">🏆</span> Победа и призовой фонд</h3>
+                    <ul>
+                        <li>Продолжительность игры составляет 3 часа</li>
+                        <li>Победителем считается игрок, которого не нашли до окончания игры</li>
+                        <li>Если по окончании игры остаётся один ненайденный игрок, он получает весь призовой фонд</li>
+                        <li>Если по окончании игры остаётся несколько ненайденных игроков, призовой фонд делится между ними поровну</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section warning">
+                    <h3><span class="icon">🔴</span> Обязательный опознавательный знак</h3>
+                    <ul>
+                        <li>Каждый участник обязан иметь на руке красную повязку либо любой другой хорошо заметный элемент красного цвета</li>
+                        <li>Опознавательный знак должен быть виден окружающим и другим участникам игры</li>
+                        <li>Отсутствие опознавательного знака может стать основанием для недопуска к игре или дисквалификации</li>
+                        <li>Цель опознавательного знака — быстро определить, что человек является участником игры, а не случайным прохожим</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section forbidden">
+                    <h3><span class="icon">❌</span> Дисквалификация</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">Игрок автоматически дисквалифицируется если:</p>
+                    <ul>
+                        <li>Покинул игровую зону</li>
+                        <li>Использовал запрещённое место для укрытия</li>
+                        <li>Нарушил любое из правил безопасности</li>
+                        <li>Участвует без обязательного опознавательного знака</li>
+                    </ul>
+                    <p style="color: var(--danger); margin-top: 15px; font-weight: 600;">⚠️ При дисквалификации взнос не возвращается</p>
+                </div>
+
+                <div class="glass-card rule-section forbidden">
+                    <h3><span class="icon">🚫</span> Запрещённые места для укрытия</h3>
+                    <ul>
+                        <li>На крышах, деревьях, сооружениях и любых объектах выше 3 метров</li>
+                        <li>В автомобилях с тонированными стёклами (включая задние стёкла)</li>
+                        <li>В подвалах</li>
+                        <li>В квартирах, домах, подъездах и любых жилых помещениях</li>
+                        <li>В гаражах</li>
+                        <li>На частных территориях</li>
+                        <li>В колодцах, технических помещениях, коммуникационных шахтах и других опасных местах</li>
+                        <li>В любых местах, доступ к которым может создать угрозу здоровью или жизни</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section">
+                    <h3><span class="icon">🚶</span> Передвижение</h3>
+                    <ul>
+                        <li>Передвигаться разрешается только пешком</li>
+                        <li>Использование автомобилей, мотоциклов, велосипедов, самокатов, скейтбордов и любого другого транспорта запрещено</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section allowed">
+                    <h3><span class="icon">✅</span> Разрешается</h3>
+                    <ul>
+                        <li>Прятаться на детских площадках</li>
+                        <li>Прятаться на деревьях и заборах высотой до 3 метров</li>
+                        <li>Перелезать через заборы, если территория за ними не является частной и доступ к ней не запрещён</li>
+                        <li>Прятаться во дворах, за деревьями, кустами</li>
+                        <li>Прятаться на козырьках подъездов</li>
+                        <li>Прятаться в садиках, магазинах, люках</li>
+                        <li>Прятаться на крышах магазинов и ларьков</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section warning">
+                    <h3><span class="icon">⚠️</span> Дополнительные правила</h3>
+                    <ul>
+                        <li>Заходить в подъезды запрещено</li>
+                        <li>Проникать на частную территорию запрещено</li>
+                        <li>Каждый участник самостоятельно несёт ответственность за свои действия и безопасность</li>
+                        <li>Подсказки, обман, отвлечение других игроков и любые игровые хитрости разрешены</li>
+                        <li>Побеждает тот, кто оказался умнее и внимательнее</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rule-section" style="border-color: var(--warning);">
+                    <h3><span class="icon">📢</span> Согласие с правилами</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">Находясь в данном чате и принимая участие в игре, вы автоматически подтверждаете, что:</p>
+                    <ul>
+                        <li>Ознакомились с настоящими правилами</li>
+                        <li>Полностью понимаете их содержание</li>
+                        <li>Обязуетесь соблюдать все пункты правил</li>
+                        <li>Принимаете условия участия и возможной дисквалификации</li>
+                        <li>Организаторы не несут никакие юридические, моральные и физические проблемы в случае любых проблем</li>
+                    </ul>
+                    <p style="color: var(--warning); margin-top: 15px; font-weight: 600;">Незнание правил не освобождает от ответственности за их нарушение</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="reveal">
+            <h2 class="section-title">❓ Часто задаваемые вопросы</h2>
+            <div class="glass-card faq-section">
+                <div class="faq-item">
+                    <div class="faq-question">Как внести взнос?</div>
+                    <div class="faq-answer">
+                        Внесите 15-20 рублей наличными или переводом ведущему при сборе. Взнос должен быть внесён до начала игры.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Что если я опоздаю?</div>
+                    <div class="faq-answer">
+                        У вас есть время прийти до 14:30.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Можно ли играть в команде?</div>
+                    <div class="faq-answer">
+                        Да, команды до 5 человек разрешены. В случае победы команды приз получает главарь, который решает, делиться ли призом с командой.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Что делать если я нашёл человека?</div>
+                    <div class="faq-answer">
+                        Немедленно сообщите об этом ведущему через Telegram. Прикрепите кружок с подтверждением находки, чтобы мы могли зафиксировать результат.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Как связаться с организаторами?</div>
+                    <div class="faq-answer">
+                        Для вопросов и обсуждений пишите в Telegram: <a href="https://t.me/Kleeveer1" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">@Kleeveer1</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="reveal">
+            <div class="contact-section">
+                <h3>📞 Связаться с организаторами</h3>
+                <p>Для вопросов и обсуждений пишите в Telegram:</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>@Kleeveer1</strong>
+                            <p>Ведущий игры</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>@pryatkipmr</strong>
+                            <p>Новости и анонсы</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TELEGRAM -->
+        <section class="reveal">
+            <div class="glass-card tg-section">
+                <h3>✈️ Присоединяйся к нам</h3>
+                <p>Все новости, обновления и анонсы в нашем Telegram-канале</p>
+                <a href="https://t.me/pryatkipmr" target="_blank" class="btn">
+                    <span>✈️</span>
+                    <span>Подписаться на @pryatkipmr</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+<footer>
+    <p>🎮 Прятки на Баме · 12 июня · Школа №16</p>
+    <p style="margin-top: 10px;">Сделано с ❤️ для любителей приключений</p>
+    <p style="margin-top: 10px; font-size: 0.9rem;">Приходи · Прячься · Побеждай</p>
+    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+        <a href="license.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">
+            <i class="fas fa-file-contract"></i> Лицензия и условия использования
+        </a>
+    </div>
+</footer>
     </div>
 
     <script>
-        // СЧЁТЧИК
-        const targetDate = new Date('2026-06-12T15:00:00').getTime();
+        // COUNTDOWN
+        const targetDate = new Date('2026-06-12T14:00:00').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
             
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            
             if (distance < 0) {
-                daysEl.textContent = '🎮';
-                hoursEl.textContent = '🔥';
-                minutesEl.textContent = '🏆';
-                secondsEl.textContent = '⚡';
-                document.querySelectorAll('.countdown-item .label').forEach(l => {
-                    l.style.display = 'none';
-                });
+                document.getElementById('days').textContent = '🎮';
+                document.getElementById('hours').textContent = '🔥';
+                document.getElementById('minutes').textContent = '🏆';
+                document.getElementById('seconds').textContent = '⚡';
+                document.querySelectorAll('.countdown-item .label').forEach(l => l.style.display = 'none');
                 return;
             }
             
@@ -1273,16 +1227,16 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
             
-            daysEl.textContent = String(days).padStart(2, '0');
-            hoursEl.textContent = String(hours).padStart(2, '0');
-            minutesEl.textContent = String(minutes).padStart(2, '0');
-            secondsEl.textContent = String(seconds).padStart(2, '0');
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
         }
         
         updateCountdown();
         setInterval(updateCountdown, 1000);
-        
-        // АНИМАЦИИ ПРИ СКРОЛЛЕ
+
+        // SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1293,8 +1247,72 @@
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         });
-        
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // FAQ ACCORDION
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.toggle('active');
+                
+                if (isActive) {
+                    answer.classList.add('show');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.classList.remove('show');
+                    answer.style.maxHeight = null;
+                }
+            });
+        });
+
+        // PARALLAX EFFECT
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            
+            orbs.forEach((orb, i) => {
+                const speed = (i + 1) * 0.5;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // PARTICLES (simple implementation)
+        document.addEventListener('DOMContentLoaded', () => {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.id = 'particles-js';
+            document.body.appendChild(particlesContainer);
+            
+            const particleCount = 100;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                particle.style.borderRadius = '50%';
+                particle.style.background = 'rgba(255, 255, 255, 0.2)';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.zIndex = '-1';
+                particle.style.opacity = '0';
+                particle.style.animation = `floatParticle ${Math.random() * 10 + 5}s infinite ease-in-out`;
+                
+                particlesContainer.appendChild(particle);
+                
+                // Add animation keyframes
+                if (i === 0) {
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        @keyframes floatParticle {
+                            0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+                            50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0.4; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+        });
     </script>
 </body>
 </html>
